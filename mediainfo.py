@@ -356,7 +356,8 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         print('-'*100)
         print("\n" + new_title + title_language + title_height + title_channels + title_hdr + title_codec)
         ygg_new_title = new_title
-        new_title = new_title + title_language + title_height + title_channels + title_hdr + title_codec + ".mkv"
+        file_extension = os.path.basename(specif_path).split('.')[-1]
+        new_title = new_title + title_language + title_height + title_channels + title_hdr + title_codec + "." + file_extension
         new_title_without_format = ygg_new_title + title_language + title_height + title_channels + title_hdr + title_codec 
         bbcode_description = bbcode + bbcode_output
         destination_path = organize_file.main(specif_path, seeding_folder, new_title)
