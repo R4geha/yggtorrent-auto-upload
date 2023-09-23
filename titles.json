@@ -1,0 +1,28 @@
+{
+    "titles": [
+        {
+            "name": "Film 1",
+            "new_title": "Mon nouveau titre 1",
+            "original_title": "Original Title 1",
+            "description": "Description 1"
+        },
+        {
+            "name": "힙하게",
+            "new_title": "Enquêtes tactiles",
+            "original_title": "Behind Your Touch",
+            "description": "Bong Ye-bun cherche à comprendre l'inexplicable don qu'elle a reçu après une pluie de météorites. Le nouveau commissariat de Moon Jang-yeol reste désespérément calme."
+        },
+        {
+            "name": "진짜가 나타났다!",
+            "new_title": "Rattrapés par la réalité !",
+            "original_title": "The real has come !",
+            "description": "Une jeune professeure brillante qui découvre qu'elle est enceinte, décide d'élever seule son bébé. Elle décide de former un faux couple avec un docteur talentueux anti-mariage. Malheureusement, la comédie s'avère plus difficile à jouer que prévu."
+        },
+        {
+            "name": "이 연애는 불가항력",
+            "new_title": "Le livre de notre destin",
+            "original_title": "Destined with you",
+            "description": "Frappé par une malédiction séculaire, un avocat se retrouve lié à une fonctionnaire qui détient involontairement la clé de sa liberté… mais aussi celle de son cœur."
+        }
+    ]
+}
