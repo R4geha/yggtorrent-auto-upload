@@ -1,5 +1,9 @@
 # Yggtorrent auto upload torrent
 
+![YggTorrent logo](https://lh3.googleusercontent.com/vor06bIGjgTqtd5aZDykrD4tJcUFISFYOFYE5RYFmns6TstLs0_OkvcgHFUSnqoAKfKFTXwR5CaUjHVeUcCXcDWmzA=w128-h128-e365-rj-sc0x00ffffff "YggTorrent logo")
+![Windows logo](https://files.softicons.com/download/system-icons/windows-8-metro-icons-by-dakirby309/png/128x128/Folders%20&%20OS/Windows.png "Windows logo")
+![Linux logo](https://static-00.iconduck.com/assets.00/linux-icon-128x128-01vvcvmw.png "Linux logo")
+
 Ce projet permet de mettre en ligne des torrents de manière automatisée sur YggTorrent, cela comprend :
 
 - Renommage du fichier avec la bonne nomenclature yggtorrent (prends en compte les dossiers, saisons ou simple fichier en fonction du format audio et vidéo, la source, ...)
@@ -48,8 +52,35 @@ Pour lancer le script, vous pouvez exécuter init.py à partir de votre terminal
 ```
 python init.py
 ```
-
 Assurez-vous d'être dans le répertoire du projet lors de l'exécution du script.
+
+### Pour Linux
+Installer les packages :
+- mediainfo
+- chromium-chromedriver
+
+```bash
+sudo apt install mediainfo chromium-chromedriver
+```
+
+Dans le fichier yggtorrent.py remplacer la ligne :
+```python
+chromedriver_path = os.path.join(path, 'chromedriver.exe')
+```
+par
+```python
+chromedriver_path = "/usr/lib/chromium-browser/chromedriver"
+```
+
+Dans le fichier mediainfo.py remplacer la ligne :
+```python
+'MediaInfo.exe',
+```
+par
+```python
+'mediainfo',
+```
+
 
 ## Personnalisation
 
