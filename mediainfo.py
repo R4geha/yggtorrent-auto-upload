@@ -65,7 +65,7 @@ def get_video_info(file_path, language):
         "Débit global moyen": media_info.tracks[0].other_overall_bit_rate[0] if media_info.tracks and media_info.tracks[0].other_overall_bit_rate else "N/A",
         "Débit vidéo": media_info.tracks[1].other_bit_rate[0] if len(media_info.tracks) > 1 and media_info.tracks[1].other_bit_rate else "N/A",
         "Format vidéo": media_info.tracks[1].format if len(media_info.tracks) > 1 else "N/A",
-        "Résolution vidéo": "1080p" if media_info.tracks[1].height >= 1080 else "720p",
+        "Résolution vidéo": f"{media_info.tracks[1].height}p",
         "HDR": hdr_info,
         "Path": file_path,
         "Pistes audios": [],
