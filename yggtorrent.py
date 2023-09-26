@@ -11,9 +11,11 @@ def init(destination_path, bbcode_description, new_title_without_format, chosen_
     header=response.text
 
     # Chemin vers le chromedriver (téléchargez-en un compatible avec votre version de Chrome)
-    path = os.path.dirname(os.path.abspath(__file__))
-    chromedriver_path = os.path.join(path, 'chromedriver.exe')
-    # chromedriver_path = os.path.join(current_directory, 'chromedriver')  # Si vous êtes sur Linux/Mac
+    if os.name == 'nt':
+        path = os.path.dirname(os.path.abspath(__file__))
+        chromedriver_path = os.path.join(path, 'chromedriver.exe')
+    else:
+        chromedriver_path = os.path.join(current_directory, 'chromedriver')  # Si vous êtes sur Linux/Mac
 
     # Configuration du navigateur
     options = webdriver.ChromeOptions()

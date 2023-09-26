@@ -65,7 +65,7 @@ def get_video_info(file_path, language):
         "Débit global moyen": media_info.tracks[0].other_overall_bit_rate[0] if media_info.tracks and media_info.tracks[0].other_overall_bit_rate else "N/A",
         "Débit vidéo": media_info.tracks[1].other_bit_rate[0] if len(media_info.tracks) > 1 and media_info.tracks[1].other_bit_rate else "N/A",
         "Format vidéo": media_info.tracks[1].format if len(media_info.tracks) > 1 else "N/A",
-        "Résolution vidéo": f"{media_info.tracks[1].height}p",
+        "Résolution vidéo": {1280: "720p", 1920: "1080p", 3840: "2160p"}.get(media_info.tracks[1].width, "Autre"),
         "HDR": hdr_info,
         "Path": file_path,
         "Pistes audios": [],
@@ -253,11 +253,18 @@ def create_torrent(source_path, destination_torrent_path, tracker_url):
     subprocess.run(command, check=True)
 
 def generate_nfo(input_path, nfo_output_path):
-    command = [
-        'MediaInfo.exe',
-        '--Output=NFO',
-        input_path
-    ]
+    if os.name == 'nt':
+        command = [
+            'MediaInfo.exe',
+            '--Output=NFO',
+            input_path
+        ]
+    else:
+        command = [
+            'mediainfo',
+            '--Output=NFO',
+            input_path
+        ]
 
     with open(nfo_output_path, 'w', encoding='utf-8') as nfo_file:
         subprocess.run(command, stdout=nfo_file, text=True)
@@ -310,6 +317,10 @@ def select_file_or_folder(path):
     return selected_item
             
 def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, data_titles, yggtorrent_user, yggtorrent_password, yggtorrent_url, root_path):
+    if os.name == 'nt':
+        os_character = "\\"
+    else:
+        os_character = "/"
     os.system('cls')
     simulate = input("Voulez-vous rechercher un film/ une série de maniere simuler: [Oui/Non]")
     os.system('cls')
@@ -333,10 +344,10 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         new_title_without_format = new_title + title_language + title_height + title_channels + title_hdr + title_codec 
         destination_path = organize_file.main(specif_path, seeding_folder, new_title_without_format)
         # CREATION DU TORRENT
-        destination_torrent_path = f"{torrent_folder}\{new_title_without_format}.torrent"
+        destination_torrent_path = f"{torrent_folder}{os_character}{new_title_without_format}.torrent"
         create_torrent(destination_path, destination_torrent_path, tracker_url)
         # GENERATE NFO
-        nfo_output_path = f"{nfo_folder}\{new_title_without_format}.nfo"
+        nfo_output_path = f"{nfo_folder}{os_character}{new_title_without_format}.nfo"
         generate_nfo(destination_path, nfo_output_path)
         # CHOIX CATEGORIE
         chosen_category = select_category()
@@ -362,10 +373,10 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         bbcode_description = bbcode + bbcode_output
         destination_path = organize_file.main(specif_path, seeding_folder, new_title)
         # CREATION DU TORRENT
-        destination_torrent_path = f"{torrent_folder}\{new_title}.torrent"
+        destination_torrent_path = f"{torrent_folder}{os_character}{new_title}.torrent"
         create_torrent(destination_path, destination_torrent_path, tracker_url)
         # GENERATE NFO
-        nfo_output_path = f"{nfo_folder}\{new_title}.nfo"
+        nfo_output_path = f"{nfo_folder}{os_character}{new_title}.nfo"
         generate_nfo(destination_path, nfo_output_path)
         # CHOIX CATEGORIE
         chosen_category = select_category()

@@ -1,4 +1,4 @@
-import mediainfo, json
+import mediainfo, json, os
 
 tracker_url = "http://connect.drago-server.org:8080/xxxxxxxxxxxxxxxxxx/announce"
 tmdb_api_key = ''
@@ -12,5 +12,5 @@ root_path = r"Z:\Vidéos\Downloaded" # Où sont les dossiers/ fichiers télécha
 
 with open("titles.json", "r", encoding="utf-8") as json_file:
     data_titles = json.load(json_file)
-
+    
 mediainfo.main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, data_titles, yggtorrent_user, yggtorrent_password, yggtorrent_url, root_path)
