@@ -241,6 +241,7 @@ def get_language_flag(langue):
         return "ar"
 
 def create_torrent(source_path, destination_torrent_path, tracker_url):
+    print("Création du fichier .torrent en cours")
     command = [
         'py3createtorrent', 
         '-o', destination_torrent_path,
@@ -253,6 +254,7 @@ def create_torrent(source_path, destination_torrent_path, tracker_url):
     subprocess.run(command, check=True)
 
 def generate_nfo(input_path, nfo_output_path):
+    print("Génération du fichier .nfo en cours")
     if os.name == 'nt':
         command = [
             'MediaInfo.exe',
@@ -315,7 +317,27 @@ def select_file_or_folder(path):
     selected_item = items[choice - 1][0]
 
     return selected_item
-            
+
+def choose_title_name(specif_path, new_title, title_language, title_height, title_channels, title_hdr, title_codec, format):
+    if format == 0:
+        old_file_name = os.path.basename(specif_path)
+        new_file_name = new_title + title_language + title_height + title_channels + title_hdr + title_codec
+        choice = input("Voici le nom actuel de votre dossier : " + old_file_name + "\nSouhaitez-vous le remplacer par : " + new_file_name + " [Oui/Non]")
+        if choice.lower() in ["oui", "yes", "y", "o", "1"]:
+            file_name = new_file_name
+        else:
+            file_name = old_file_name
+    elif format == 1:
+        old_file_name = os.path.basename(specif_path)
+        file_extension = os.path.basename(specif_path).split('.')[-1]
+        new_file_name = new_title + title_language + title_height + title_channels + title_hdr + title_codec + "." + file_extension
+        choice = input("Voici le nom actuel de votre fichier : " + old_file_name + "\nSouhaitez-vous le remplacer par : " + new_file_name + " [Oui/Non]")
+        if choice.lower() in ["oui", "yes", "y", "o", "1"]:
+            file_name = new_file_name
+        else:
+            file_name = old_file_name
+    return file_name
+    
 def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, data_titles, yggtorrent_user, yggtorrent_password, yggtorrent_url, root_path):
     if os.name == 'nt':
         os_character = "\\"
@@ -341,7 +363,7 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         print(bbcode_description)
         print('-'*100)
         print("\n" + new_title + title_language + title_height + title_channels + title_hdr + title_codec)
-        new_title_without_format = new_title + title_language + title_height + title_channels + title_hdr + title_codec 
+        new_title_without_format = choose_title_name(specif_path, new_title, title_language, title_height, title_channels, title_hdr, title_codec, format=0)
         destination_path = organize_file.main(specif_path, seeding_folder, new_title_without_format)
         # CREATION DU TORRENT
         destination_torrent_path = f"{torrent_folder}{os_character}{new_title_without_format}.torrent"
@@ -366,10 +388,8 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         print(bbcode + bbcode_output)
         print('-'*100)
         print("\n" + new_title + title_language + title_height + title_channels + title_hdr + title_codec)
-        ygg_new_title = new_title
-        file_extension = os.path.basename(specif_path).split('.')[-1]
-        new_title = new_title + title_language + title_height + title_channels + title_hdr + title_codec + "." + file_extension
-        new_title_without_format = ygg_new_title + title_language + title_height + title_channels + title_hdr + title_codec 
+        new_title = choose_title_name(specif_path, new_title, title_language, title_height, title_channels, title_hdr, title_codec, format=1)
+        new_title_without_format = os.path.splitext(new_title)[0]
         bbcode_description = bbcode + bbcode_output
         destination_path = organize_file.main(specif_path, seeding_folder, new_title)
         # CREATION DU TORRENT

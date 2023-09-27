@@ -135,6 +135,8 @@ def language_field_serie(driver, new_title_without_format):
     language_element = driver.find_element("xpath", '/html/body/div[9]/main/div/div/section[2]/form/div/div[8]/div[3]/div[2]/div/div/span/span[1]/span/ul/li/input')
     if "VFF." in new_title_without_format:
         language_value = "Français (VFF/Truefrench)"
+    elif "FRENCH." in new_title_without_format:
+        language_value = "Français (VFF/Truefrench)"
     elif "MULTI." in new_title_without_format:
         language_value = "Multi (Français inclus)"
     elif "VOSTFR." in new_title_without_format:
@@ -150,6 +152,8 @@ def quality_field_serie(driver, new_title_without_format):
         quality_value = "Web-Dl 1080"
     elif ".720p." in new_title_without_format:
         quality_value = "Web-Dl 720"
+    elif ".2160p." in new_title_without_format:
+        quality_value = "Web-Dl 2160"
     quality_element.send_keys(quality_value)
     quality_element.send_keys(Keys.RETURN)
     quality_element = driver.find_element("xpath", '/html/body/div[9]/main/div/div/section[2]/form/div/div[8]/div[4]/div[2]/div/div/span/span[1]/span/span[1]')
