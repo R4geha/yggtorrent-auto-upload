@@ -221,6 +221,8 @@ def quality_field_movie(driver, new_title_without_format):
         quality_value = "Web-Dl 1080"
     elif ".720p." in new_title_without_format:
         quality_value = "Web-Dl 720"
+    elif ".2160p." in new_title_without_format:
+        quality_value = "Web-Dl 2160"
     quality_element.send_keys(quality_value)
     quality_element.send_keys(Keys.RETURN)
     quality_element = driver.find_element("xpath", '/html/body/div[9]/main/div/div/section[2]/form/div/div[8]/div[2]/div[2]/div/div/span/span[1]/span/span[1]')
