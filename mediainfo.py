@@ -241,6 +241,7 @@ def get_language_flag(langue):
         return "ar"
 
 def create_torrent(source_path, destination_torrent_path, tracker_url):
+    print('-'*100)
     print("Création du fichier .torrent en cours")
     command = [
         'py3createtorrent', 
@@ -254,6 +255,7 @@ def create_torrent(source_path, destination_torrent_path, tracker_url):
     subprocess.run(command, check=True)
 
 def generate_nfo(input_path, nfo_output_path):
+    print('-'*100)
     print("Génération du fichier .nfo en cours")
     if os.name == 'nt':
         command = [
@@ -271,7 +273,15 @@ def generate_nfo(input_path, nfo_output_path):
     with open(nfo_output_path, 'w', encoding='utf-8') as nfo_file:
         subprocess.run(command, stdout=nfo_file, text=True)
 
+    with open(nfo_output_path, "r", encoding="utf-8") as nfo_file:
+        nfo_content = nfo_file.read()
+    edit_nfo = nfo_content.replace(input_path, os.path.basename(input_path))
+    
+    with open(nfo_output_path, "w", encoding="utf-8") as nfo_file:
+        nfo_file.write(edit_nfo)
+
 def select_category():
+    print('-'*100)
     categories = [
         "Animation",
         "Animation Série",
@@ -362,7 +372,6 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         print('-'*100)
         print(bbcode_description)
         print('-'*100)
-        print("\n" + new_title + title_language + title_height + title_channels + title_hdr + title_codec)
         new_title_without_format = choose_title_name(specif_path, new_title, title_language, title_height, title_channels, title_hdr, title_codec, format=0)
         destination_path = organize_file.main(specif_path, seeding_folder, new_title_without_format)
         # CREATION DU TORRENT
@@ -387,7 +396,6 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         print('-'*100)
         print(bbcode + bbcode_output)
         print('-'*100)
-        print("\n" + new_title + title_language + title_height + title_channels + title_hdr + title_codec)
         new_title = choose_title_name(specif_path, new_title, title_language, title_height, title_channels, title_hdr, title_codec, format=1)
         new_title_without_format = os.path.splitext(new_title)[0]
         bbcode_description = bbcode + bbcode_output
