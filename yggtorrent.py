@@ -15,7 +15,7 @@ def init(destination_path, bbcode_description, new_title_without_format, chosen_
         path = os.path.dirname(os.path.abspath(__file__))
         chromedriver_path = os.path.join(path, 'chromedriver.exe')
     else:
-        chromedriver_path = os.path.join(current_directory, 'chromedriver')  # Si vous êtes sur Linux/Mac
+        chromedriver_path = "/usr/lib/chromium-browser/chromedriver" # Si vous êtes sur Linux/Mac
 
     # Configuration du navigateur
     options = webdriver.ChromeOptions()
