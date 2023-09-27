@@ -52,35 +52,19 @@ Pour lancer le script, vous pouvez exécuter init.py à partir de votre terminal
 ```
 python init.py
 ```
+
 Assurez-vous d'être dans le répertoire du projet lors de l'exécution du script.
 
 ### Pour Linux
+
 Installer les packages :
+
 - mediainfo
 - chromium-chromedriver
 
 ```bash
 sudo apt install mediainfo chromium-chromedriver
 ```
-
-Dans le fichier yggtorrent.py remplacer la ligne :
-```python
-chromedriver_path = os.path.join(path, 'chromedriver.exe')
-```
-par
-```python
-chromedriver_path = "/usr/lib/chromium-browser/chromedriver"
-```
-
-Dans le fichier mediainfo.py remplacer la ligne :
-```python
-'MediaInfo.exe',
-```
-par
-```python
-'mediainfo',
-```
-
 
 ## Personnalisation
 
