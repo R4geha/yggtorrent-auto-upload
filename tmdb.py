@@ -276,14 +276,16 @@ def main(isFolder, tmdb_api_key, data_titles):
     print("Résultats pour les films :")
     for index, result in enumerate(movie_results, start=1):
         title = result.get('title', 'N/A')
+        date = datetime.strptime(result.get('release_date', 'N/A'), "%Y-%m-%d").strftime("%d-%m-%Y") if result.get('release_date', 'N/A') else ""
         movie_link = f"https://www.themoviedb.org/movie/{result['id']}"
-        print(f"{index}. Film : {title} (lien : {movie_link})")
+        print(f"{index}. Film : {title} [{date}] [{movie_link}]")
     
     print("\nRésultats pour les séries :")
     for index, result in enumerate(series_results, start=len(movie_results) + 1):
         title = result.get('name', 'N/A')
+        date = datetime.strptime(result.get('first_air_date', 'N/A'), "%Y-%m-%d").strftime("%d-%m-%Y") if result.get('first_air_date', 'N/A') else ""
         series_link = f"https://www.themoviedb.org/tv/{result['id']}"
-        print(f"{index}. Série : {title} (lien : {series_link})")
+        print(f"{index}. Série : {title} [{date}] [{series_link}]")
     
     choice = int(input("Choisissez un film ou une série en entrant son numéro : "))
     
