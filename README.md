@@ -9,9 +9,10 @@ Ce projet permet de mettre en ligne des torrents de manière automatisée sur Yg
 - Renommage du fichier avec la bonne nomenclature yggtorrent (prends en compte les dossiers, saisons ou simple fichier en fonction du format audio et vidéo, la source, ...)
 - Génération de la présentation
 - Ajout des éléments dans la présentation via tmdb
-- Récupération des informations du média via mediainfo (en version cli)
-- Création du torrent (en version cli)
-- Création de l'upload en web (de manière automatisée)
+- Récupération des informations du média via mediainfo
+- Création du torrent
+- Création du fichier NFO
+- Création de l'upload en web
 - ...
 
 > Ce projet est un premier jet, il reste encore des fonctionnalités à développer. Certaines sont simples et d'autres demandes un peu plus de temps. Vous pouvez participer si vous le souhaitez. En cas d'aide vous pouvez ouvrir une issue GitHub.
