@@ -2,8 +2,6 @@ import os
 from pymediainfo import MediaInfo
 import math, tmdb, organize_file, yggtorrent, subprocess, re
 
-
-
 def calculate_total_size(path):
     if os.path.isdir(path):
         total_size = 0
@@ -79,6 +77,7 @@ def get_video_info(file_path, language):
                 "Format audio": track.format,
                 "Débit audio": track.other_bit_rate[0] if track.other_bit_rate else "N/A",
                 "Nombre de canaux": track.channel_s if track.channel_s else "N/A",
+                "Type d'audio": track.commercial_name if track.commercial_name else "N/A",
                 "Langue": get_audio_language(track.other_language[0] if track.other_language else None, language, track.title if track.title else None),
             }
             video_info["Pistes audios"].append(audio_info)
@@ -166,10 +165,13 @@ def generate_bbcode(video_info, total_files, total_size, average_video_bitrate):
     audio_language_list = []
     for index, audio in enumerate(video_info["Pistes audios"], start=1):
         channels = f"[{audio['Nombre de canaux']}]"
-        if audio["Nombre de canaux"] == 6:
+        if audio["Nombre de canaux"] == 6 and audio["Type d'audio"] == "Dolby Digital Plus":
             channels = "[5.1]"
             title_channels = "DDP5.1."
-        elif audio["Nombre de canaux"] == 2:
+        elif audio["Nombre de canaux"] == 2 and audio["Type d'audio"] == "Dolby Digital Plus":
+            channels = "[2.0]"
+            title_channels = "DDP2.0"
+        elif audio["Nombre de canaux"] == 2 and audio["Type d'audio"] != "Dolby Digital Plus":
             channels = "[2.0]"
             title_channels = ""
         elif audio["Nombre de canaux"] != "N/A":
