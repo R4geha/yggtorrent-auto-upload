@@ -9,8 +9,9 @@ seeding_folder = r"Z:\Vidéos\Seeding" # Où seront stockés les dossiers/ fichi
 torrent_folder = r"Z:\Vidéos\Seeding\0 - TORRENT FILES" # Où seront stockés les fichiers .torrent
 nfo_folder = r"Z:\Vidéos\Seeding\1 - NFO FILES" # Où seront stockés les fichiers nfo
 root_path = r"Z:\Vidéos\Downloaded" # Où sont les dossiers/ fichiers téléchargés
+tag = "" # Si vous souhaitez mettre votre tag ou celui de votre team (laisser à vide si vous souhaitez ne pas en mettre)
 
 with open("titles.json", "r", encoding="utf-8") as json_file:
     data_titles = json.load(json_file)
     
-mediainfo.main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, data_titles, yggtorrent_user, yggtorrent_password, yggtorrent_url, root_path)
+mediainfo.main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, data_titles, yggtorrent_user, yggtorrent_password, yggtorrent_url, root_path, tag)
