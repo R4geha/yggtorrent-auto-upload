@@ -17,6 +17,12 @@ Ce projet permet de mettre en ligne des torrents de manière automatisée sur Yg
 
 > Ce projet est un premier jet, il reste encore des fonctionnalités à développer. Certaines sont simples et d'autres demandes un peu plus de temps. Vous pouvez participer si vous le souhaitez. En cas d'aide vous pouvez ouvrir une issue GitHub.
 
+
+
+https://github.com/R4geha/yggtorrent-auto-upload/assets/145836202/a554fbce-0a4a-4fcc-b860-c4b6d8fbb4c5
+
+
+
 ## Installation
 
 1. **Installer Python**: Si vous n'avez pas encore Python 3 installé, vous pouvez le télécharger à partir du [site officiel de Python](https://www.python.org/downloads/) et suivez les instructions d'installation pour votre système d'exploitation.
