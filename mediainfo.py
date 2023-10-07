@@ -170,7 +170,7 @@ def generate_bbcode(video_info, total_files, total_size, average_video_bitrate):
             title_channels = "DDP5.1."
         elif audio["Nombre de canaux"] == 2 and audio["Type d'audio"] == "Dolby Digital Plus":
             channels = "[2.0]"
-            title_channels = "DDP2.0"
+            title_channels = "DDP2.0."
         elif audio["Nombre de canaux"] == 2 and audio["Type d'audio"] != "Dolby Digital Plus":
             channels = "[2.0]"
             title_channels = ""
