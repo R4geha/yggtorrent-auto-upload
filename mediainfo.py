@@ -45,7 +45,7 @@ def process_folder(path, language):
         
     average_video_bitrate = f"~{math.ceil(total_video_bitrate / len(video_files))}"
     bbcode_output, title_channels, title_codec, title_height, title_language, title_hdr = generate_bbcode(video_info, total_files, total_size, average_video_bitrate)
-    return bbcode_output, title_channels, title_codec, title_height, title_language, title_hdr
+    return bbcode_output, title_channels, title_codec, title_height, title_language, title_hdr, total_size
         
 def get_video_info(file_path, language):
     media_info = MediaInfo.parse(file_path)
@@ -243,13 +243,26 @@ def get_language_flag(langue):
     else:
         return "ar"
 
-def create_torrent(source_path, destination_torrent_path, tracker_url):
+def create_torrent(source_path, destination_torrent_path, tracker_url,total_size):
     print('-'*100)
     print("Création du fichier .torrent en cours")
+    
+    if total_size < 1:
+        piece_length = "1024"
+    elif 1 <= total_size < 2:
+        piece_length = "2048"
+    elif 2 <= total_size < 4:
+        piece_length = "4096"
+    elif 4 <= total_size < 8:
+        piece_length = "8192"
+    else:
+        piece_length = "16384"
+
     command = [
         'py3createtorrent', 
         '-o', destination_torrent_path,
         '-t', tracker_url,
+        '-p', piece_length,
         '-P',
         '-c', "YggTorrent",
         '-f',
@@ -371,7 +384,7 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
     language = "fr"
     print('#'*100)
     if os.path.isdir(specif_path):
-        bbcode_output, title_channels, title_codec, title_height, title_language, title_hdr = process_folder(specif_path, language)
+        bbcode_output, title_channels, title_codec, title_height, title_language, title_hdr, total_size = process_folder(specif_path, language)
         bbcode, new_title, genres = tmdb.main("folder", tmdb_api_key, data_titles)
         bbcode_description = bbcode + bbcode_output
         print('-'*100)
@@ -381,7 +394,7 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         destination_path = organize_file.main(specif_path, seeding_folder, new_title_without_format)
         # CREATION DU TORRENT
         destination_torrent_path = f"{torrent_folder}{os_character}{new_title_without_format}.torrent"
-        create_torrent(destination_path, destination_torrent_path, tracker_url)
+        create_torrent(destination_path, destination_torrent_path, tracker_url, float(total_size))
         # GENERATE NFO
         nfo_output_path = f"{nfo_folder}{os_character}{new_title_without_format}.nfo"
         generate_nfo(destination_path, nfo_output_path)
@@ -407,7 +420,7 @@ def main(tracker_url, seeding_folder, torrent_folder, nfo_folder, tmdb_api_key, 
         destination_path = organize_file.main(specif_path, seeding_folder, new_title)
         # CREATION DU TORRENT
         destination_torrent_path = f"{torrent_folder}{os_character}{new_title}.torrent"
-        create_torrent(destination_path, destination_torrent_path, tracker_url)
+        create_torrent(destination_path, destination_torrent_path, tracker_url, float(total_size))
         # GENERATE NFO
         nfo_output_path = f"{nfo_folder}{os_character}{new_title}.nfo"
         generate_nfo(destination_path, nfo_output_path)
