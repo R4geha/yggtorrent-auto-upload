@@ -1,8 +1,8 @@
 import mediainfo, json, os
 
-tracker_url = "http://connect.drago-server.org:8080/xxxxxxxxxxxxxxxxxx/announce"
+tracker_url = "http://tracker.loadpeers.org:8080/xxxxxxxxxxxxxxxxxx/announce"
 tmdb_api_key = ''
-yggtorrent_url = 'https://yggtorrent.wtf'
+yggtorrent_url = 'https://www3.yggtorrent.qa'
 yggtorrent_user = ''
 yggtorrent_password = ''
 seeding_folder = r"Z:\Vidéos\Seeding" # Où seront stockés les dossiers/ fichiers pour le seeding
